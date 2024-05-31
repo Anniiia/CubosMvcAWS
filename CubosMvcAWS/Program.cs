@@ -1,9 +1,13 @@
+using Amazon.S3;
 using CubosMvcAWS.Services;
+using Microsoft.Build.Framework;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.AddTransient<ServiceCubos>();
+builder.Services.AddTransient<ServiceStorageAWS>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

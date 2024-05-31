@@ -8,10 +8,12 @@ namespace CubosMvcAWS.Controllers
     {
 
         private ServiceCubos service;
+        private ServiceStorageAWS serviceStorage;
 
-        public CubosController(ServiceCubos service)
+        public CubosController(ServiceCubos service, ServiceStorageAWS serviceStorage)
         {
             this.service = service;
+            this.serviceStorage = serviceStorage;
         }
         public async Task<IActionResult> Index()
         {
@@ -49,8 +51,14 @@ namespace CubosMvcAWS.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Cubo cubo)
+        public async Task<IActionResult> Create(Cubo cubo, IFormFile file)
         {
+            cubo.Imagen = file.FileName;
+            using (Stream stream = file.OpenReadStream())
+            {
+                await this.serviceStorage.UploadFileAsync(file.FileName, stream);
+            }
+
             await this.service.CreateCuboAsync(cubo);
             return RedirectToAction("Index");
         }
