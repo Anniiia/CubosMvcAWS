@@ -11,8 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 string jsonSecrets = await
     HelperSecretManager.GetSecretsAsync();
-KeysModel keysModel =
-    JsonConvert.DeserializeObject<KeysModel>(jsonSecrets);
+KeysModel keysModel = JsonConvert.DeserializeObject<KeysModel>(jsonSecrets);
 builder.Services.AddSingleton<KeysModel>(x => keysModel);
 
 builder.Services.AddAWSService<IAmazonS3>();
