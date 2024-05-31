@@ -1,10 +1,10 @@
-﻿@inject IConfiguration configuration
+﻿@inject KeysModel keysModel
 @model IEnumerable<CubosMvcAWS.Models.Cubo>
 
 @{
     ViewData["Title"] = "CubosMarca";
     List<string> marcas = ViewData["MARCAS"] as List<string>;
-    string UrlBucket = configuration.GetValue<string>("AWS:S3BucketUrl");
+    string UrlBucket = keysModel.BucketUrl;
 }
 
 

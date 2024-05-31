@@ -9,9 +9,9 @@ namespace CubosMvcAWS.Services
         private MediaTypeWithQualityHeaderValue header;
 
         private string UrlApi;
-        public ServiceCubos(IConfiguration configuration)
+        public ServiceCubos(KeysModel keysModel)
         {
-            this.UrlApi = configuration.GetValue<string>("ApiUrl:ApiCubos");
+            this.UrlApi = keysModel.ApiCubos;
             this.header = new MediaTypeWithQualityHeaderValue("application/json");
         }
 

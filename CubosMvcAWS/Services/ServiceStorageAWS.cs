@@ -1,5 +1,6 @@
 ﻿using Amazon.S3.Model;
 using Amazon.S3;
+using CubosMvcAWS.Models;
 
 namespace CubosMvcAWS.Services
 {
@@ -9,10 +10,9 @@ namespace CubosMvcAWS.Services
         private string BucketName;
 
         public ServiceStorageAWS
-            (IConfiguration configuration, IAmazonS3 client)
+            (KeysModel keysModel, IAmazonS3 client)
         {
-            this.BucketName =
-                configuration.GetValue<string>("AWS:S3BucketName");
+            this.BucketName = keysModel.BucketName;
             this.client = client;
         }
 
