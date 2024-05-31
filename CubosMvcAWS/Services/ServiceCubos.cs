@@ -84,7 +84,7 @@ namespace CubosMvcAWS.Services
         {
             using (HttpClient client = new HttpClient())
             {
-                string request = "api/peliculas";
+                string request = "api/cubos";
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(this.header);
                 string json = JsonConvert.SerializeObject(cubo);
