@@ -1,0 +1,74 @@
+﻿@inject IConfiguration configuration
+@model IEnumerable<CubosMvcAWS.Models.Cubo>
+
+@{
+    ViewData["Title"] = "CubosMarca";
+    List<string> marcas = ViewData["MARCAS"] as List<string>;
+    string UrlBucket = configuration.GetValue<string>("AWS:S3BucketUrl");
+}
+
+
+<h1>CubosMarca</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form method="post">
+    <select name="marca">
+        @foreach (string marc in @marcas)
+        {
+            <option>@marc</option>
+
+        }
+    </select>
+    <button class="btn btn-success">Buscar</button>
+</form>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdCubo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Marca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Imagen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Precio)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCubo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca)
+                    </td>
+                    <td>
+                        <img src="@UrlBucket@item.Imagen" style="width:150px; height:150px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>>
+                </tr>
+            }
+        </tbody>
+    </table>    
+}
+
